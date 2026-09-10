@@ -1,0 +1,32 @@
+.landing-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #faf3e0;
+}
+
+.start-button {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #5c4326;
+  background-color: #fff9ec;
+  border: 1px solid #d8c39a;
+  border-radius: 999px;
+  padding: 1rem 2.25rem;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 6px rgba(92, 67, 38, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.start-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(92, 67, 38, 0.18);
+  background-color: #fffdf7;
+}
+
+.start-button:active {
+  transform: translateY(0) scale(0.99);
+}
