@@ -1,0 +1,193 @@
+/* ---- Phase 3 (screen-space bin): fixed right-middle disposal bin ---- */
+
+.bin-ui {
+  position: fixed;
+  top: 50%;
+  right: 48px;
+  transform: translateY(-50%);
+  z-index: 6; /* above the canvas, below modal overlays */
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none; /* purely visual - dragging happens in the 3D scene */
+  filter: drop-shadow(0 8px 16px rgba(92, 67, 38, 0.22));
+}
+
+.bin-ui__glow {
+  position: absolute;
+  top: 2px;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 217, 143, 0.55), rgba(244, 217, 143, 0) 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.bin-ui__glow--active {
+  opacity: 1;
+}
+
+.bin-ui__wrap {
+  position: relative;
+  width: 84px;
+}
+
+.bin-ui__wrap--bounce {
+  animation: bin-ui-bounce 0.5s ease;
+}
+
+@keyframes bin-ui-bounce {
+  0% {
+    transform: scale(1, 1);
+  }
+  30% {
+    transform: scale(1.12, 0.88);
+  }
+  55% {
+    transform: scale(0.94, 1.08);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.bin-ui__lid {
+  position: relative;
+  width: 78px;
+  height: 16px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #f7e6bd, #eccf8e);
+  border: 1px solid #caa15a;
+  border-radius: 10px;
+  transform-origin: 50% 100%;
+  transform: perspective(240px) rotateX(0deg);
+  transition: transform 0.3s cubic-bezier(0.22, 0.8, 0.3, 1);
+  z-index: 2;
+}
+
+.bin-ui__lid--open {
+  transform: perspective(240px) rotateX(58deg) translateY(-3px);
+}
+
+.bin-ui__lid-knob {
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #caa15a;
+  transform: translateX(-50%);
+}
+
+.bin-ui__body {
+  width: 72px;
+  height: 70px;
+  margin: -3px auto 0;
+  background: linear-gradient(180deg, #fbf1de, #f2e2bd);
+  border: 1px solid #d8c39a;
+  clip-path: polygon(10% 0%, 90% 0%, 81% 100%, 19% 100%);
+  position: relative;
+}
+
+.bin-ui__band {
+  position: absolute;
+  top: 32%;
+  left: 12%;
+  right: 12%;
+  height: 3px;
+  background: rgba(202, 161, 90, 0.5);
+  border-radius: 2px;
+}
+
+.bin-ui__particles {
+  position: absolute;
+  top: 4px;
+  width: 90px;
+  height: 90px;
+}
+
+.bin-ui__particle {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f4d98f;
+  box-shadow: 0 0 4px rgba(244, 217, 143, 0.9);
+  animation: bin-ui-particle 0.55s ease-out forwards;
+}
+
+@keyframes bin-ui-particle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.3);
+  }
+}
+
+.bin-ui__label {
+  margin-top: 6px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a6f47;
+  opacity: 0.85;
+}
+
+/* Tablet */
+@media (max-width: 820px) {
+  .bin-ui {
+    right: 22px;
+    width: 72px;
+  }
+  .bin-ui__glow {
+    width: 86px;
+    height: 86px;
+  }
+  .bin-ui__wrap {
+    width: 66px;
+  }
+  .bin-ui__lid {
+    width: 62px;
+    height: 13px;
+  }
+  .bin-ui__body {
+    width: 56px;
+    height: 54px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .bin-ui {
+    right: 10px;
+    width: 56px;
+  }
+  .bin-ui__glow {
+    width: 68px;
+    height: 68px;
+    top: -2px;
+  }
+  .bin-ui__wrap {
+    width: 50px;
+  }
+  .bin-ui__lid {
+    width: 46px;
+    height: 11px;
+  }
+  .bin-ui__body {
+    width: 42px;
+    height: 40px;
+  }
+  .bin-ui__label {
+    display: none;
+  }
+}
